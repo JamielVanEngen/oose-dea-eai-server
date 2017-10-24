@@ -29,6 +29,5 @@ public class LoginController {
         } catch (AuthenticationException e) {
             return Response.status(HttpResponse.UNAUTHORIZED.getValue()).build();
         }
-
     }
 }

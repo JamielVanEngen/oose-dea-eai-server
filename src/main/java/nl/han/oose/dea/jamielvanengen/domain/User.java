@@ -24,32 +24,6 @@ public class User {
     }
 
     public boolean authenticate(String password) {
-        return this.password.equals(hash(password));
-    }
-
-    public String hash(String stringToHash) {
-        byte[] hashedString = new byte[0];
-        try {
-            hashedString = getMessageDigest(stringToHash).digest();
-        } catch (NoSuchAlgorithmException e) {
-            // TODO: add a usefull catch (logging)
-            e.printStackTrace();
-        }
-        return convertDecimalFormatToHexadecimal(hashedString);
-    }
-
-    private String convertDecimalFormatToHexadecimal(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        for(int i=0; i< bytes.length ;i++)
-        {
-            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
-        return sb.toString();
-    }
-
-    private MessageDigest getMessageDigest(String stringToHash) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(stringToHash.getBytes());
-        return md;
+        return this.password.equals(password);
     }
 }
