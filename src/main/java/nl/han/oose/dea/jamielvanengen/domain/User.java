@@ -4,15 +4,25 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class User {
+    private int id;
     private String user;
     private String password;
 
     public User() {
     }
 
-    public User(String user, String password, String token) {
+    public User(int id, String user, String password, String token) {
+        this.id = id;
         this.user = user;
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUser() {
