@@ -10,6 +10,9 @@ public class PlaylistsOverviewItem {
     private boolean owner;
     private List<Track> tracks;
 
+    public PlaylistsOverviewItem() {
+    }
+
     public PlaylistsOverviewItem(int id, String name, boolean owner, List<Track> tracks) {
         this.id = id;
         this.name = name;
