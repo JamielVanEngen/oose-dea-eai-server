@@ -31,6 +31,7 @@ public class UserDAO extends DAO {
             ResultSet rs = statement.executeQuery();
 
             List<User> users = userBuilder.getUsersFromResultSet(rs);
+            statement.close();
             return users.stream().findFirst().orElseGet(() -> null);
         } catch (SQLException e) {
             e.printStackTrace();
