@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Default
-public class PlaylistsOverviewItemBuilder {
+public class PlaylistOverviewItemBuilder {
     public List<PlaylistOverviewItem> buildPlaylistOverviewsFromPlaylists(List<Playlist> playlists, int currentUserId) {
         List<PlaylistOverviewItem> playlistOverviewItems = new ArrayList<>();
 
