@@ -3,15 +3,15 @@ package nl.han.oose.dea.jamielvanengen.presentation.dtos;
 import java.util.List;
 
 public class PlaylistOverview {
-    private List<PlaylistsOverviewItem> playlists;
+    private List<PlaylistOverviewItem> playlists;
     private int length;
 
-    public PlaylistOverview(List<PlaylistsOverviewItem> playlists, int length) {
+    public PlaylistOverview(List<PlaylistOverviewItem> playlists, int length) {
         this.playlists = playlists;
         this.length = length;
     }
 
-    public List<PlaylistsOverviewItem> getPlaylists() {
+    public List<PlaylistOverviewItem> getPlaylists() {
         return playlists;
     }
 

@@ -4,16 +4,16 @@ import nl.han.oose.dea.jamielvanengen.domain.tracks.Track;
 
 import java.util.List;
 
-public class PlaylistsOverviewItem {
+public class PlaylistOverviewItem {
     private int id;
     private String name;
     private boolean owner;
     private List<Track> tracks;
 
-    public PlaylistsOverviewItem() {
+    public PlaylistOverviewItem() {
     }
 
-    public PlaylistsOverviewItem(int id, String name, boolean owner, List<Track> tracks) {
+    public PlaylistOverviewItem(int id, String name, boolean owner, List<Track> tracks) {
         this.id = id;
         this.name = name;
         this.owner = owner;
