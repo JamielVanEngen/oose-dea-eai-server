@@ -34,6 +34,16 @@ public class PlaylistDAO extends DAO {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlist WHERE id = ?");
         statement.setInt(1, id);
         List<Playlist> playlists = playlistBuilder.getPlaylistsFromResultSet(statement.executeQuery());
+        statement.close();
         return playlists.stream().findFirst().orElse(new Playlist());
+    }
+
+    public void addPlaylist(String name, int userId) throws SQLException {
+        Connection connection = connectionFactory.getConnectionFromProperties();
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO playlist(name, userid) VALUES(?, ?)");
+        statement.setString(1, name);
+        statement.setInt(2, userId);
+        statement.executeUpdate();
+        statement.close();
     }
 }
