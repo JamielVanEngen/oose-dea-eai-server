@@ -3,8 +3,8 @@ package nl.han.oose.dea.jamielvanengen.presentation.controllers;
 import nl.han.oose.dea.jamielvanengen.constants.HttpResponse;
 import nl.han.oose.dea.jamielvanengen.domain.Playlist;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistOverview;
-import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistsOverviewItem;
-import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.PlaylistsOverviewItemBuilder;
+import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistOverviewItem;
+import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.PlaylistOverviewItemBuilder;
 import nl.han.oose.dea.jamielvanengen.services.PlaylistService;
 import nl.han.oose.dea.jamielvanengen.services.TokenService;
 import nl.han.oose.dea.jamielvanengen.services.TrackService;
@@ -28,7 +28,7 @@ public class PlaylistController {
     TrackService trackService;
 
     @Inject
-    PlaylistsOverviewItemBuilder playlistsOverviewItemBuilder;
+    PlaylistOverviewItemBuilder playlistOverviewItemBuilder;
 
     @GET
     @Path("/")
@@ -48,11 +48,10 @@ public class PlaylistController {
     @Path("{id}")
     public Response deletePlaylist(@PathParam("id") int id, @QueryParam("token") String token) {
         if (tokenService.doesTokenExist(token)) {
-            int currentUserId = tokenService.getUserIdByTokenUuid(token);
-            Playlist playlist = playlistService.getPlaylistById(id);
-            if (playlist.getUserid() == currentUserId) {
+            int userId = tokenService.getUserIdByTokenUuid(token);
+            if (isUserThePlaylistOwner(userId, id)) {
                 playlistService.deletePlaylistByid(id);
-                PlaylistOverview overview = getPlaylistOverview(currentUserId);
+                PlaylistOverview overview = getPlaylistOverview(userId);
 
                 return Response.status(HttpResponse.OK.getValue()).entity(overview).build();
             }
@@ -63,16 +62,40 @@ public class PlaylistController {
     private PlaylistOverview getPlaylistOverview(int currentUserId) {
         List<Playlist> playlists = playlistService.getAllPlaylists();
         int afspeelduur = trackService.getTotalTrackTime();
-        List<PlaylistsOverviewItem> playlistsOverviewItems = playlistsOverviewItemBuilder
+        List<PlaylistOverviewItem> playlistOverviewItems = playlistOverviewItemBuilder
                 .buildPlaylistOverviewsFromPlaylists(playlists, currentUserId);
 
-        return new PlaylistOverview(playlistsOverviewItems, afspeelduur);
+        return new PlaylistOverview(playlistOverviewItems, afspeelduur);
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response editPlaylists(@PathParam("id") int id,
+                                  @QueryParam("token") String token,
+                                  PlaylistOverviewItem playlist) {
+        if (tokenService.doesTokenExist(token)) {
+            int userId = tokenService.getUserIdByTokenUuid(token);
+            if (isUserThePlaylistOwner(userId, playlist.getId())) {
+                playlistService.editPlaylist(playlist.getId(), playlist.getName());
+                PlaylistOverview overview = getPlaylistOverview(userId);
+
+                return Response.status(HttpResponse.OK.getValue()).entity(overview).build();
+            }
+        }
+        return Response.status(HttpResponse.UNAUTHORIZED.getValue()).build();
+    }
+
+    private boolean isUserThePlaylistOwner(int userId, int playlistId) {
+        Playlist playlist = playlistService.getPlaylistById(playlistId);
+
+        return playlist.getUserid() == userId;
     }
 
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addPlaylists(@QueryParam("token") String token, PlaylistsOverviewItem playlist) {
+    public Response addPlaylists(@QueryParam("token") String token, PlaylistOverviewItem playlist) {
         if (tokenService.doesTokenExist(token)) {
             int currentUserId = tokenService.getUserIdByTokenUuid(token);
             playlistService.addPlaylist(playlist.getName(), currentUserId);
