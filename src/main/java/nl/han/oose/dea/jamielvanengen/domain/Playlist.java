@@ -11,6 +11,10 @@ public class Playlist {
         this.userid = userid;
     }
 
+    public Playlist() {
+
+    }
+
     public int getId() {
         return id;
     }

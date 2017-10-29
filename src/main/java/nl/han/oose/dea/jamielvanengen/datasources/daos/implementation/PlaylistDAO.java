@@ -20,4 +20,20 @@ public class PlaylistDAO extends DAO {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlist");
         return playlistBuilder.getPlaylistsFromResultSet(statement.executeQuery());
     }
+
+    public void deletePlaylistById(int id) throws SQLException {
+        Connection connection = connectionFactory.getConnectionFromProperties();
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM playlist WHERE id = ?");
+        statement.setInt(1, id);
+
+        statement.executeUpdate();
+    }
+
+    public Playlist getPlaylistById(int id) throws SQLException {
+        Connection connection = connectionFactory.getConnectionFromProperties();
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlist WHERE id = ?");
+        statement.setInt(1, id);
+        List<Playlist> playlists = playlistBuilder.getPlaylistsFromResultSet(statement.executeQuery());
+        return playlists.stream().findFirst().orElse(new Playlist());
+    }
 }

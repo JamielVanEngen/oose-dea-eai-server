@@ -6,7 +6,10 @@ import nl.han.oose.dea.jamielvanengen.domain.tracks.Track;
 import javax.enterprise.inject.Default;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Default
 public class TrackDAO extends DAO {
@@ -17,6 +20,17 @@ public class TrackDAO extends DAO {
                 " UNION ALL" +
                 " SELECT afspeelduur FROM spotitube.video)" +
                 "total");
-        return statement.executeQuery().getInt("afspeelduur");
+
+        int afspeelduur = getAfspeelduurFromResultSet(statement.executeQuery());
+        statement.close();
+        return afspeelduur;
+    }
+
+    private int getAfspeelduurFromResultSet(ResultSet resultSet) throws SQLException {
+        List<Integer> result = new ArrayList<Integer>();
+        while (resultSet.next()) {
+            result.add(resultSet.getInt("afspeelduur"));
+        }
+        return result.stream().findFirst().orElse(0);
     }
 }

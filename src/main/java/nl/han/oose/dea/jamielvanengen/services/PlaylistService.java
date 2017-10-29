@@ -23,4 +23,22 @@ public class PlaylistService {
         }
         return playlists;
     }
+
+    public void deletePlaylistByid(int id) {
+        try {
+            playlistDAO.deletePlaylistById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Playlist getPlaylistById(int id) {
+        Playlist playlist = new Playlist();
+        try {
+            playlist = playlistDAO.getPlaylistById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return playlist;
+    }
 }

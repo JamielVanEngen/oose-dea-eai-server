@@ -10,9 +10,7 @@ import nl.han.oose.dea.jamielvanengen.services.TokenService;
 import nl.han.oose.dea.jamielvanengen.services.TrackService;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -35,11 +33,8 @@ public class PlaylistController {
     @Path("/")
     public Response getAllPlaylists(@QueryParam("token") String token) {
         if (tokenService.doesTokenExist(token)) {
-            List<Playlist> playlists = playlistService.getAllPlaylists();
             int currentUserId = tokenService.getUserIdByTokenUuid(token);
-            int afspeelduur = trackService.getTotalTrackTime();
-
-            PlaylistOverview overview = getPlaylistOverview(playlists, afspeelduur, currentUserId);
+            PlaylistOverview overview = getPlaylistOverview(currentUserId);
 
             return Response.status(HttpResponse.OK.getValue()).entity(overview).build();
         }
@@ -48,7 +43,25 @@ public class PlaylistController {
         }
     }
 
-    private PlaylistOverview getPlaylistOverview(List<Playlist> playlists, int afspeelduur, int currentUserId) {
+    @DELETE
+    @Path("{id}")
+    public Response deletePlaylist(@PathParam("id") int id, @QueryParam("token") String token) {
+        if (tokenService.doesTokenExist(token)) {
+            int currentUserId = tokenService.getUserIdByTokenUuid(token);
+            Playlist playlist = playlistService.getPlaylistById(id);
+            if (playlist.getUserid() == currentUserId) {
+                playlistService.deletePlaylistByid(id);
+                PlaylistOverview overview = getPlaylistOverview(currentUserId);
+
+                return Response.status(HttpResponse.OK.getValue()).entity(overview).build();
+            }
+        }
+        return Response.status(HttpResponse.UNAUTHORIZED.getValue()).build();
+    }
+
+    private PlaylistOverview getPlaylistOverview(int currentUserId) {
+        List<Playlist> playlists = playlistService.getAllPlaylists();
+        int afspeelduur = trackService.getTotalTrackTime();
         List<PlaylistsOverviewItem> playlistsOverviewItems = playlistsOverviewItemBuilder
                 .buildPlaylistOverviewsFromPlaylists(playlists, currentUserId);
 
