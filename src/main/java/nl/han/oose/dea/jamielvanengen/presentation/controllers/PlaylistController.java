@@ -11,6 +11,7 @@ import nl.han.oose.dea.jamielvanengen.services.TrackService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -66,5 +67,21 @@ public class PlaylistController {
                 .buildPlaylistOverviewsFromPlaylists(playlists, currentUserId);
 
         return new PlaylistOverview(playlistsOverviewItems, afspeelduur);
+    }
+
+    @POST
+    @Path("/")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addPlaylists(@QueryParam("token") String token, PlaylistsOverviewItem playlist) {
+        if (tokenService.doesTokenExist(token)) {
+            int currentUserId = tokenService.getUserIdByTokenUuid(token);
+            playlistService.addPlaylist(playlist.getName(), currentUserId);
+            PlaylistOverview overview = getPlaylistOverview(currentUserId);
+
+            return Response.status(HttpResponse.OK.getValue()).entity(overview).build();
+        }
+        else {
+            return Response.status(HttpResponse.UNAUTHORIZED.getValue()).build();
+        }
     }
 }
