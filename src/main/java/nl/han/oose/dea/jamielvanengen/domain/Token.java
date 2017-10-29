@@ -4,15 +4,15 @@ import java.time.LocalDate;
 
 public class Token {
     private String uuid;
-    private int id;
+    private int userId;
     private LocalDate date;
 
     public Token() {
     }
 
-    public Token(String uuid, int id, LocalDate date) {
+    public Token(String uuid, int userId, LocalDate date) {
         this.uuid = uuid;
-        this.id = id;
+        this.userId = userId;
         this.date = date;
     }
 
@@ -20,8 +20,8 @@ public class Token {
         return uuid;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
     public LocalDate getDate() {

@@ -1,4 +1,4 @@
-package nl.han.oose.dea.jamielvanengen.datasources.daos;
+package nl.han.oose.dea.jamielvanengen.datasources;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import nl.han.oose.dea.jamielvanengen.constants.DatabaseDrivers;

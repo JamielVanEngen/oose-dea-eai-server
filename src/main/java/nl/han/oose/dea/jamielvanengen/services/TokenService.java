@@ -5,7 +5,6 @@ import nl.han.oose.dea.jamielvanengen.domain.Token;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
-import javax.ws.rs.NotFoundException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -30,13 +29,14 @@ public class TokenService {
         return new Token(uuid, userId, now);
     }
 
-    public Token getToken(String uuid) {
+    public int getUserIdByTokenUuid(String uuid) {
+        Token token = new Token();
         try {
-            return tokenDAO.getTokenByUuid(uuid);
+            token =  tokenDAO.getTokenByUuid(uuid);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new NotFoundException();
+        return token.getUserId();
     }
 
     private void deleteExistingTokensOfUser(int userId) {
@@ -50,5 +50,13 @@ public class TokenService {
         }
     }
 
-
+    public boolean doesTokenExist(String uuid) {
+        Token token = new Token();
+        try {
+            token =  tokenDAO.getTokenByUuid(uuid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return uuid.equals(token.getUuid());
+    }
 }

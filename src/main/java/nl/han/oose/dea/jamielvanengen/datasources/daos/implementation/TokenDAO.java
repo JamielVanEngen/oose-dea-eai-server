@@ -28,6 +28,7 @@ public class TokenDAO extends DAO {
         statement.setObject(3, date);
 
         statement.executeUpdate();
+        statement.close();
     }
 
     public Token getTokenByUuid(String uuid) throws SQLException {
@@ -35,7 +36,8 @@ public class TokenDAO extends DAO {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM token WHERE token = ?");
         statement.setString(1, uuid);
         List<Token> foundTokens = tokenBuilder.getTokensFromResultSet(statement.executeQuery());
-        return foundTokens.stream().findFirst().orElse(null);
+        statement.close();
+        return foundTokens.stream().findFirst().orElse(new Token());
     }
 
     public List<Token> getTokensByUserId(int userId) throws SQLException {
@@ -43,6 +45,7 @@ public class TokenDAO extends DAO {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM token WHERE userid = ?");
         statement.setInt(1, userId);
         List<Token> foundTokens = tokenBuilder.getTokensFromResultSet(statement.executeQuery());
+        statement.close();
         return foundTokens;
     }
 
@@ -53,6 +56,7 @@ public class TokenDAO extends DAO {
             statement = conn.prepareStatement("DELETE FROM token WHERE token = ?");
             statement.setString(1, uuid);
             statement.executeUpdate();
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
