@@ -41,4 +41,12 @@ public class PlaylistService {
         }
         return playlist;
     }
+
+    public void addPlaylist(String name, int userId) {
+        try {
+            playlistDAO.addPlaylist(name, userId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
