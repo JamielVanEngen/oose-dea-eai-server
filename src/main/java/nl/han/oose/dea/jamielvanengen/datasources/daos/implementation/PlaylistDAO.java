@@ -46,4 +46,13 @@ public class PlaylistDAO extends DAO {
         statement.executeUpdate();
         statement.close();
     }
+
+    public void editPlaylist(int id, String name) throws SQLException {
+        Connection connection = connectionFactory.getConnectionFromProperties();
+        PreparedStatement statement = connection.prepareStatement("UPDATE playlist SET name = ? WHERE id = ?");
+        statement.setString(1, name);
+        statement.setInt(2, id);
+        statement.executeUpdate();
+        statement.close();
+    }
 }
