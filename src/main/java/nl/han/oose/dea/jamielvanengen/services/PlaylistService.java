@@ -49,4 +49,12 @@ public class PlaylistService {
             e.printStackTrace();
         }
     }
+
+    public void editPlaylist(int id, String name) {
+        try {
+            playlistDAO.editPlaylist(id, name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
