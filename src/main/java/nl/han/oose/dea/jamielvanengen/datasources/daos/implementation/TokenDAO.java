@@ -8,11 +8,8 @@ import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Default
@@ -35,7 +32,7 @@ public class TokenDAO extends DAO {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM token WHERE token = ?");
         statement.setString(1, uuid);
-        List<Token> foundTokens = tokenBuilder.getTokensFromResultSet(statement.executeQuery());
+        List<Token> foundTokens = tokenBuilder.buildObjectFromResultSet(statement.executeQuery());
         statement.close();
         return foundTokens.stream().findFirst().orElse(new Token());
     }
@@ -44,7 +41,7 @@ public class TokenDAO extends DAO {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM token WHERE userid = ?");
         statement.setInt(1, userId);
-        List<Token> foundTokens = tokenBuilder.getTokensFromResultSet(statement.executeQuery());
+        List<Token> foundTokens = tokenBuilder.buildObjectFromResultSet(statement.executeQuery());
         statement.close();
         return foundTokens;
     }

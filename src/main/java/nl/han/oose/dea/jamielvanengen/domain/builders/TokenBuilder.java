@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Default
-public class TokenBuilder {
-    public List<Token> getTokensFromResultSet(ResultSet resultSet) throws SQLException {
+public class TokenBuilder implements Builder<Token> {
+    @Override
+    public List<Token> buildObjectFromResultSet(ResultSet resultSet) throws SQLException {
         List<Token> tokens = new ArrayList<>();
         while (resultSet.next()) {
             tokens.add((new Token(resultSet.getString("token"),

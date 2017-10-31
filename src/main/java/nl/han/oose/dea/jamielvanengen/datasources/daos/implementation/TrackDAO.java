@@ -1,7 +1,7 @@
 package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
-import nl.han.oose.dea.jamielvanengen.domain.tracks.Track;
+import nl.han.oose.dea.jamielvanengen.domain.Track;
 
 import javax.enterprise.inject.Default;
 import java.sql.Connection;
@@ -28,5 +28,9 @@ public class TrackDAO extends DAO {
             result.add(resultSet.getInt("afspeelduur"));
         }
         return result.stream().findFirst().orElse(0);
+    }
+
+    public List<Track> getAllTracksByPlaylistId(int playlistId) throws SQLException {
+        return null;
     }
 }

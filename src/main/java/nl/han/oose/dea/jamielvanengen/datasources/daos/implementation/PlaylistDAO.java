@@ -2,6 +2,7 @@ package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
 import nl.han.oose.dea.jamielvanengen.domain.Playlist;
+import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
 import nl.han.oose.dea.jamielvanengen.domain.builders.PlaylistBuilder;
 
 import javax.inject.Inject;
@@ -12,13 +13,13 @@ import java.util.List;
 
 public class PlaylistDAO extends DAO {
     @Inject
-    PlaylistBuilder playlistBuilder;
+    Builder<Playlist> playlistBuilder;
 
 
     public List<Playlist> getAllPlaylists() throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlist");
-        return playlistBuilder.getPlaylistsFromResultSet(statement.executeQuery());
+        return playlistBuilder.buildObjectFromResultSet(statement.executeQuery());
     }
 
     public void deletePlaylistById(int id) throws SQLException {
@@ -33,7 +34,7 @@ public class PlaylistDAO extends DAO {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlist WHERE id = ?");
         statement.setInt(1, id);
-        List<Playlist> playlists = playlistBuilder.getPlaylistsFromResultSet(statement.executeQuery());
+        List<Playlist> playlists = playlistBuilder.buildObjectFromResultSet(statement.executeQuery());
         statement.close();
         return playlists.stream().findFirst().orElse(new Playlist());
     }
