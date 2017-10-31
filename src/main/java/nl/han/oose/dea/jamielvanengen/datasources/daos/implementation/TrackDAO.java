@@ -15,11 +15,7 @@ import java.util.List;
 public class TrackDAO extends DAO {
     public int getTotalTrackTime() throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
-        PreparedStatement statement = connection.prepareStatement("SELECT SUM(total.afspeelduur) AS afspeelduur FROM (" +
-                "SELECT afspeelduur FROM spotitube.song" +
-                " UNION ALL" +
-                " SELECT afspeelduur FROM spotitube.video)" +
-                "total");
+        PreparedStatement statement = connection.prepareStatement("SELECT SUM(total.afspeelduur) FROM track");
 
         int afspeelduur = getAfspeelduurFromResultSet(statement.executeQuery());
         statement.close();
