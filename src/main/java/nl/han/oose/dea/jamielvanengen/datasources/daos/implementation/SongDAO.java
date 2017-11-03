@@ -36,4 +36,18 @@ public class SongDAO extends DAO {
         statement.setInt(1, playlistId);
         return trackBuilder.buildObjectFromResultSet(statement.executeQuery());
     }
+
+    public List<Track> getAllSongsNotInPlaylist(int playlistId) throws SQLException {
+        Connection connection = connectionFactory.getConnectionFromProperties();
+        PreparedStatement statement = connection.prepareStatement(
+                "SELECT *\n" +
+                        "FROM spotitube.song\n" +
+                        "WHERE id NOT IN " +
+                        " (SELECT DISTINCT trackId " +
+                            "FROM spotitube.`songs-per-playlist` " +
+                        " WHERE playlistId = ?)"
+        );
+        statement.setInt(1, playlistId);
+        return trackBuilder.buildObjectFromResultSet(statement.executeQuery());
+    }
 }
