@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Path("/playlists")
+@Path("/tracks")
 public class TrackController {
 
     @Inject
