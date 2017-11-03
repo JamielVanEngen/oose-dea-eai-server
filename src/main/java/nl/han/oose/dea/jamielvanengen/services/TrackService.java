@@ -43,4 +43,15 @@ public class TrackService {
         }
         return tracks;
     }
+
+    public List<Track> getAllTracksNotInPlaylist(int playlistId) {
+        List<Track> tracks = new ArrayList<>();
+        try {
+            tracks.addAll(songDAO.getAllSongsNotInPlaylist(playlistId));
+            tracks.addAll(videoDAO.getAllVideosNotInPlaylist(playlistId));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tracks;
+    }
 }
