@@ -2,10 +2,12 @@ package nl.han.oose.dea.jamielvanengen.presentation.controllers;
 
 import nl.han.oose.dea.jamielvanengen.constants.HttpResponse;
 import nl.han.oose.dea.jamielvanengen.domain.Playlist;
+import nl.han.oose.dea.jamielvanengen.domain.track.Track;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistOverview;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistOverviewItem;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.TrackOverview;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.PlaylistOverviewItemBuilder;
+import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.TrackViewModelBuilder;
 import nl.han.oose.dea.jamielvanengen.services.PlaylistService;
 import nl.han.oose.dea.jamielvanengen.services.TokenService;
 import nl.han.oose.dea.jamielvanengen.services.TrackService;
@@ -32,7 +34,7 @@ public class PlaylistController {
     PlaylistOverviewItemBuilder playlistOverviewItemBuilder;
 
     @Inject
-    TrackController trackController;
+    TrackViewModelBuilder trackViewModelBuilder;
 
     @GET
     @Path("/")
@@ -126,6 +128,7 @@ public class PlaylistController {
     }
 
     private TrackOverview getAllTracksNotInPlaylist(int playlistId) {
-        return null;
+        List<Track> tracks = trackService.getAllTracksNotInPlaylist(playlistId);
+        return new TrackOverview(trackViewModelBuilder.buildTrackViewModelsFromTracks(tracks));
     }
 }
