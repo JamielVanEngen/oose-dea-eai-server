@@ -4,6 +4,7 @@ import nl.han.oose.dea.jamielvanengen.datasources.daos.implementation.SongDAO;
 import nl.han.oose.dea.jamielvanengen.datasources.daos.implementation.TrackDAO;
 import nl.han.oose.dea.jamielvanengen.datasources.daos.implementation.VideoDAO;
 import nl.han.oose.dea.jamielvanengen.domain.track.Track;
+import nl.han.oose.dea.jamielvanengen.domain.track.impl.Song;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;

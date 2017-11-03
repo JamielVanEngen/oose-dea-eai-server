@@ -1,28 +1,28 @@
 package nl.han.oose.dea.jamielvanengen.domain.track;
 
-import java.time.LocalDate;
-
 public abstract class Track {
-    private int tackid;
+    private int id;
     private String performer, titel, url;
     private int afspeelduur;
     private Integer playcount;
+    private boolean isAvailableOffline;
 
-    public Track(int tackid, String performer, String titel, String url, int afspeelduur, Integer playcount) {
-        this.tackid = tackid;
+    public Track(int id, String performer, String titel, String url, int afspeelduur, Integer playcount, boolean isAvailableOffline) {
+        this.id = id;
         this.performer = performer;
         this.titel = titel;
         this.url = url;
         this.afspeelduur = afspeelduur;
         this.playcount = playcount;
+        this.isAvailableOffline = isAvailableOffline;
     }
 
-    public int getTackid() {
-        return tackid;
+    public int getId() {
+        return id;
     }
 
-    public void setTackid(int tackid) {
-        this.tackid = tackid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPerformer() {
@@ -59,5 +59,9 @@ public abstract class Track {
 
     public Integer getPlaycount() {
         return playcount;
+    }
+
+    public boolean isAvailableOffline() {
+        return isAvailableOffline;
     }
 }

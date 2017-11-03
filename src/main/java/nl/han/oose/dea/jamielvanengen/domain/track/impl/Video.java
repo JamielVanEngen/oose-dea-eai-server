@@ -3,13 +3,14 @@ package nl.han.oose.dea.jamielvanengen.domain.track.impl;
 import nl.han.oose.dea.jamielvanengen.domain.track.Track;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Video extends Track {
     private String beschrijving;
-    private Date publicatiedatum;
+    private LocalDate publicatiedatum;
 
-    public Video(int tackid, String performer, String titel, String url, int afspeelduur, Integer playcount, String beschrijving, Date publicatiedatum) {
-        super(tackid, performer, titel, url, afspeelduur, playcount);
+    public Video(int id, String performer, String titel, String url, int afspeelduur, Integer playcount, boolean isAvailableOffline, String beschrijving, LocalDate publicatiedatum) {
+        super(id, performer, titel, url, afspeelduur, playcount, isAvailableOffline);
         this.beschrijving = beschrijving;
         this.publicatiedatum = publicatiedatum;
     }
@@ -18,7 +19,7 @@ public class Video extends Track {
         return beschrijving;
     }
 
-    public Date getPublicatiedatum() {
+    public LocalDate getPublicatiedatum() {
         return publicatiedatum;
     }
 }

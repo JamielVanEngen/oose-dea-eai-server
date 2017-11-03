@@ -4,6 +4,7 @@ import nl.han.oose.dea.jamielvanengen.domain.track.Track;
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Song;
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Video;
 
+import javax.ejb.Local;
 import javax.enterprise.inject.Default;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -41,8 +42,9 @@ public class TrackBuilder implements Builder<Track> {
                 resultSet.getString("url"),
                 resultSet.getInt("afspeelduur"),
                 resultSet.getObject( "playcount" , Integer.class ),
+                resultSet.getBoolean("isAvailableOffline"),
                 resultSet.getString("beschrijving"),
-                resultSet.getObject( "publicatiedatum" , Date.class ));
+                resultSet.getObject( "publicatiedatum" , LocalDate.class ));
     }
     private Song buildSongFromResultSet(ResultSet resultSet) throws SQLException {
         return new Song(
@@ -52,6 +54,7 @@ public class TrackBuilder implements Builder<Track> {
                 resultSet.getString("url"),
                 resultSet.getInt("afspeelduur"),
                 resultSet.getObject( "playcount" , Integer.class ),
+                resultSet.getBoolean("isAvailableOffline"),
                 resultSet.getString("album"));
     }
 }

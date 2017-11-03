@@ -35,4 +35,14 @@ public class TrackDAO extends DAO {
         }
         return result.stream().findFirst().orElse(0);
     }
+
+    protected List<Boolean>  getIsAvailableOfflineFromResultSet(ResultSet resultset) throws SQLException {
+        List<Boolean> IsAvailableOfflineList = new ArrayList<>();
+
+        while (resultset.next()) {
+            IsAvailableOfflineList.add(resultset.getBoolean("isAvailableOffline"));
+        }
+
+        return IsAvailableOfflineList;
+    }
 }
