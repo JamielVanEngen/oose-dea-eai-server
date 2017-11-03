@@ -1,9 +1,11 @@
 package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
-import nl.han.oose.dea.jamielvanengen.domain.Track;
+import nl.han.oose.dea.jamielvanengen.domain.track.Track;
+import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
 
 import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,9 +15,13 @@ import java.util.List;
 
 @Default
 public class TrackDAO extends DAO {
+    @Inject
+    Builder<Track> trackBuilder;
+
+
     public int getTotalTrackTime() throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
-        PreparedStatement statement = connection.prepareStatement("SELECT SUM(total.afspeelduur) FROM track");
+        PreparedStatement statement = connection.prepareStatement("CALL spotitube.`get_total_length_from_all_playlists`;");
 
         int afspeelduur = getAfspeelduurFromResultSet(statement.executeQuery());
         statement.close();
@@ -28,9 +34,5 @@ public class TrackDAO extends DAO {
             result.add(resultSet.getInt("afspeelduur"));
         }
         return result.stream().findFirst().orElse(0);
-    }
-
-    public List<Track> getAllTracksByPlaylistId(int playlistId) throws SQLException {
-        return null;
     }
 }

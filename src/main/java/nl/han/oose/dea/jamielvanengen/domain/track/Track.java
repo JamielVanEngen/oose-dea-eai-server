@@ -1,22 +1,18 @@
-package nl.han.oose.dea.jamielvanengen.domain;
+package nl.han.oose.dea.jamielvanengen.domain.track;
 
 import java.time.LocalDate;
 
-public class Track {
+public abstract class Track {
     private int tackid;
-    private String performer, titel, url, album, beschrijving;
-    private LocalDate publicatiedatum;
+    private String performer, titel, url;
     private int afspeelduur;
     private Integer playcount;
 
-    public Track(int tackid, String performer, String titel, String url, String album, String beschrijving, LocalDate publicatiedatum, int afspeelduur, Integer playcount) {
+    public Track(int tackid, String performer, String titel, String url, int afspeelduur, Integer playcount) {
         this.tackid = tackid;
         this.performer = performer;
         this.titel = titel;
         this.url = url;
-        this.album = album;
-        this.beschrijving = beschrijving;
-        this.publicatiedatum = publicatiedatum;
         this.afspeelduur = afspeelduur;
         this.playcount = playcount;
     }
@@ -63,17 +59,5 @@ public class Track {
 
     public Integer getPlaycount() {
         return playcount;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public String getBeschrijving() {
-        return beschrijving;
-    }
-
-    public LocalDate getPublicatiedatum() {
-        return publicatiedatum;
     }
 }

@@ -1,6 +1,6 @@
 package nl.han.oose.dea.jamielvanengen.presentation.dtos;
 
-import nl.han.oose.dea.jamielvanengen.domain.Track;
+import nl.han.oose.dea.jamielvanengen.domain.track.Track;
 
 import java.util.List;
 
