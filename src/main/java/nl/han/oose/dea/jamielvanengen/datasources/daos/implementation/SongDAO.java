@@ -5,6 +5,7 @@ import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
 import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
 import nl.han.oose.dea.jamielvanengen.domain.track.Track;
 
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongDAO extends TrackDAO {
+@Default
+public class SongDAO extends DAO {
     @Inject
     Builder<Track> trackBuilder;
 
