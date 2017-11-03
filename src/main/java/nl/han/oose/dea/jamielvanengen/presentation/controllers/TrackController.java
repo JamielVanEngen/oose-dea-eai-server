@@ -33,9 +33,9 @@ public class TrackController {
 
     @GET
     @Path("/")
-    public Response getAllTracks(@QueryParam("token") String token, @QueryParam("forPlaylist") int forPlaylist) {
+    public Response getAllTracksNotInPlaylist(@QueryParam("token") String token, @QueryParam("forPlaylist") int forPlaylist) {
         if (tokenService.doesTokenExist(token)) {
-            TrackOverview overview = getTracksByPlaylistId(forPlaylist);
+            TrackOverview overview = getAllTracksNotInPlaylist(forPlaylist);
 
             return Response.status(HttpResponse.OK.getValue()).entity(overview).build();
         }
@@ -44,8 +44,8 @@ public class TrackController {
         }
     }
 
-    private TrackOverview getTracksByPlaylistId(int playlistId) {
-        List<Track> tracks = trackService.getAllTracksByPlaylistId(playlistId);
+    private TrackOverview getAllTracksNotInPlaylist(int playlistId) {
+        List<Track> tracks = trackService.getAllTracksNotInPlaylist(playlistId);
         return new TrackOverview(trackViewModelBuilder.buildTrackViewModelsFromTracks(tracks));
     }
 }
