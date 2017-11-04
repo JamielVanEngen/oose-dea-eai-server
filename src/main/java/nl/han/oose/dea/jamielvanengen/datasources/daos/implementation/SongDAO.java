@@ -23,7 +23,7 @@ public class SongDAO extends DAO {
     @Named("SongPerPlaylist")
     Builder<TrackPerPlaylist> trackPerPlaylistBuilder;
 
-    public List<Song> getAllSongsByPlaylistId(int playlistId) throws SQLException {
+    public List<TrackPerPlaylist> getAllSongsByPlaylistId(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement(
                 "SELECT s.id,\n" +
@@ -39,7 +39,7 @@ public class SongDAO extends DAO {
                         "WHERE spp.playlistid = ?"
         );
         statement.setInt(1, playlistId);
-        return songBuilder.buildObjectFromResultSet(statement.executeQuery());
+        return trackPerPlaylistBuilder.buildObjectFromResultSet(statement.executeQuery());
     }
 
     public List<Song> getAllSongsNotInPlaylist(int playlistId) throws SQLException {

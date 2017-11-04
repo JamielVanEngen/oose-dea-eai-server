@@ -4,6 +4,7 @@ import nl.han.oose.dea.jamielvanengen.datasources.daos.implementation.SongDAO;
 import nl.han.oose.dea.jamielvanengen.datasources.daos.implementation.TrackDAO;
 import nl.han.oose.dea.jamielvanengen.datasources.daos.implementation.VideoDAO;
 import nl.han.oose.dea.jamielvanengen.domain.track.Track;
+import nl.han.oose.dea.jamielvanengen.domain.track.TrackPerPlaylist;
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Song;
 
 import javax.enterprise.inject.Default;
@@ -33,15 +34,15 @@ public class TrackService {
         return totalTrackTime;
     }
 
-    public List<Track> getAllTracksByPlaylistId(int playlistId) {
-        List<Track> tracks = new ArrayList<>();
+    public List<TrackPerPlaylist> getAllTracksByPlaylistId(int playlistId) {
+        List<TrackPerPlaylist> trackPerPlaylists = new ArrayList<>();
         try {
-            tracks.addAll(songDAO.getAllSongsByPlaylistId(playlistId));
-            tracks.addAll(videoDAO.getAllVideosByPlaylistId(playlistId));
+            trackPerPlaylists.addAll(songDAO.getAllSongsByPlaylistId(playlistId));
+            trackPerPlaylists.addAll(videoDAO.getAllVideosByPlaylistId(playlistId));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return tracks;
+        return trackPerPlaylists;
     }
 
     public List<Track> getAllTracksNotInPlaylist(int playlistId) {

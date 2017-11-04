@@ -2,7 +2,7 @@ package nl.han.oose.dea.jamielvanengen.presentation.controllers;
 
 import nl.han.oose.dea.jamielvanengen.constants.HttpResponse;
 import nl.han.oose.dea.jamielvanengen.domain.Playlist;
-import nl.han.oose.dea.jamielvanengen.domain.track.Track;
+import nl.han.oose.dea.jamielvanengen.domain.track.TrackPerPlaylist;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistOverview;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistOverviewItem;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.TrackOverview;
@@ -128,7 +128,7 @@ public class PlaylistController {
     }
 
     private TrackOverview getTracksByPlaylistId(int playlistId) {
-        List<Track> tracks = trackService.getAllTracksByPlaylistId(playlistId);
-        return new TrackOverview(trackViewModelBuilder.buildTrackViewModelsFromTracks(tracks));
+        List<TrackPerPlaylist> tracks = trackService.getAllTracksByPlaylistId(playlistId);
+        return new TrackOverview(trackViewModelBuilder.buildTrackViewModelsFromTrackPerPlaylists(tracks));
     }
 }

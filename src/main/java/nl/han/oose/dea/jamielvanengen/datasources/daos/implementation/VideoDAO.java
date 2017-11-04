@@ -22,7 +22,7 @@ public class VideoDAO extends DAO {
     @Named("VideoPerPlaylist")
     Builder<TrackPerPlaylist> trackPerPlaylistBuilder;
 
-    public List<Track> getAllVideosByPlaylistId(int playlistId) throws SQLException {
+    public List<TrackPerPlaylist> getAllVideosByPlaylistId(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement(
                 "SELECT v.id,\n" +
@@ -39,7 +39,7 @@ public class VideoDAO extends DAO {
                         "WHERE vpp.playlistid = ?"
         );
         statement.setInt(1, playlistId);
-        return trackBuilder.buildObjectFromResultSet(statement.executeQuery());
+        return trackPerPlaylistBuilder.buildObjectFromResultSet(statement.executeQuery());
     }
 
     public List<Track> getAllVideosNotInPlaylist(int playlistId) throws SQLException {
