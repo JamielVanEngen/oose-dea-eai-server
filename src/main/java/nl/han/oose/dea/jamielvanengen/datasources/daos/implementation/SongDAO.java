@@ -1,22 +1,21 @@
 package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 
-import java.sql.ResultSet;
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
 import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
 import nl.han.oose.dea.jamielvanengen.domain.track.Track;
+import nl.han.oose.dea.jamielvanengen.domain.track.impl.Song;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Default
 public class SongDAO extends DAO {
     @Inject
-    Builder<Track> trackBuilder;
+    Builder<Song> songBuilder;
 
     public List<Track> getAllSongsByPlaylistId(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
@@ -34,7 +33,7 @@ public class SongDAO extends DAO {
                         "WHERE spp.playlistid = ?"
         );
         statement.setInt(1, playlistId);
-        return trackBuilder.buildObjectFromResultSet(statement.executeQuery());
+        return songBuilder.buildObjectFromResultSet(statement.executeQuery());
     }
 
     public List<Track> getAllSongsNotInPlaylist(int playlistId) throws SQLException {
@@ -48,6 +47,6 @@ public class SongDAO extends DAO {
                         " WHERE playlistId = ?)"
         );
         statement.setInt(1, playlistId);
-        return trackBuilder.buildObjectFromResultSet(statement.executeQuery());
+        return songBuilder.buildObjectFromResultSet(statement.executeQuery());
     }
 }
