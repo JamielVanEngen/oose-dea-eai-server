@@ -3,10 +3,12 @@ package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
 import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
 import nl.han.oose.dea.jamielvanengen.domain.track.Track;
+import nl.han.oose.dea.jamielvanengen.domain.track.TrackPerPlaylist;
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Song;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -16,6 +18,10 @@ import java.util.List;
 public class SongDAO extends DAO {
     @Inject
     Builder<Song> songBuilder;
+
+    @Inject
+    @Named("SongPerPlaylist")
+    Builder<TrackPerPlaylist> trackPerPlaylistBuilder;
 
     public List<Song> getAllSongsByPlaylistId(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
