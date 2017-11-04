@@ -26,17 +26,18 @@ public class SongDAO extends DAO {
     public List<TrackPerPlaylist> getAllSongsByPlaylistId(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement(
-                "SELECT s.id,\n" +
-                        "\t s.performer,\n" +
-                        "\t s.titel,\n" +
-                        "\t s.album,\n" +
-                        "\t s.url,\n" +
-                        "\t s.afspeelduur,\n" +
-                        "\t s.playcount,\n" +
-                        "    spp.isAvailableOffline\n" +
-                        "FROM song s\n" +
-                        "INNER JOIN `songs-per-playlist` spp ON  s.id = spp.trackid\n" +
-                        "WHERE spp.playlistid = ?"
+                "SELECT t.id,\n" +
+                        "t.performer,\n" +
+                        "t.titel,\n" +
+                        "s.album,\n" +
+                        "t.url,\n" +
+                        "t.afspeelduur,\n" +
+                        "t.playcount,\n" +
+                        "tpp.isAvailableOffline\n" +
+                        "FROM track t\n" +
+                        "INNER JOIN song s ON t.id = s.id\n" +
+                        "INNER JOIN track_per_playlist tpp ON t.id = tpp.trackid\n" +
+                        "WHERE tpp.playlistid = ?"
         );
         statement.setInt(1, playlistId);
         return trackPerPlaylistBuilder.buildObjectFromResultSet(statement.executeQuery());
@@ -45,12 +46,19 @@ public class SongDAO extends DAO {
     public List<Song> getAllSongsNotInPlaylist(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement(
-                "SELECT *\n" +
-                        "FROM spotitube.song\n" +
-                        "WHERE id NOT IN " +
-                        " (SELECT DISTINCT trackId " +
-                            "FROM spotitube.`songs-per-playlist` " +
-                        " WHERE playlistId = ?)"
+                "SELECT t.id,\n" +
+                        "t.performer,\n" +
+                        "t.titel,\n" +
+                        "s.album,\n" +
+                        "t.url,\n" +
+                        "t.afspeelduur,\n" +
+                        "t.playcount\n" +
+                        "FROM track t\n" +
+                        "INNER JOIN song s ON t.id = s.id\n" +
+                        "WHERE t.id NOT IN (\n" +
+                        "\tSELECT DISTINCT trackid\n" +
+                        "\t\tFROM track_per_playlist\n" +
+                        "\tWHERE playlistid = ?)"
         );
         statement.setInt(1, playlistId);
         return songBuilder.buildObjectFromResultSet(statement.executeQuery());

@@ -34,7 +34,7 @@ public class TrackViewModelBuilder {
                 video.getAfspeelduur(),
                 null,
                 video.getPlaycount(),
-                video.getPublicatiedatum().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")),
+                video.getPublicatiedatum().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 video.getBeschrijving()
         );
     }

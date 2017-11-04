@@ -25,18 +25,19 @@ public class VideoDAO extends DAO {
     public List<TrackPerPlaylist> getAllVideosByPlaylistId(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement(
-                "SELECT v.id,\n" +
-                        "\t v.performer,\n" +
-                        "\t v.titel,\n" +
-                        "\t v.publicatiedatum,\n" +
-                        "\t v.beschrijving,\n" +
-                        "\t v.url,\n" +
-                        "\t v.afspeelduur,\n" +
-                        "\t v.playcount,\n" +
-                        "    vpp.isAvailableOffline\n" +
-                        "FROM video v\n" +
-                        "INNER JOIN `videos-per-playlist` vpp ON  v.id = vpp.trackid\n" +
-                        "WHERE vpp.playlistid = ?"
+                "SELECT t.id,\n" +
+                        "t.performer,\n" +
+                        "t.titel,\n" +
+                        "v.publicatiedatum,\n" +
+                        "v.beschrijving,\n" +
+                        "t.url,\n" +
+                        "t.afspeelduur,\n" +
+                        "t.playcount,\n" +
+                        "tpp.isAvailableOffline\n" +
+                        "FROM track t\n" +
+                        "INNER JOIN video v ON t.id = v.id\n" +
+                        "INNER JOIN track_per_playlist tpp ON t.id = tpp.trackid\n" +
+                        "WHERE tpp.playlistid = ?"
         );
         statement.setInt(1, playlistId);
         return trackPerPlaylistBuilder.buildObjectFromResultSet(statement.executeQuery());
@@ -45,12 +46,20 @@ public class VideoDAO extends DAO {
     public List<Video> getAllVideosNotInPlaylist(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement(
-                "SELECT *\n" +
-                        "FROM spotitube.video\n" +
-                        "WHERE id NOT IN " +
-                        " (SELECT DISTINCT trackId " +
-                        "FROM spotitube.`videos-per-playlist` " +
-                        " WHERE playlistId = ?)"
+                "SELECT t.id,\n" +
+                        "t.performer,\n" +
+                        "t.titel,\n" +
+                        "v.publicatiedatum,\n" +
+                        "v.beschrijving,\n" +
+                        "t.url,\n" +
+                        "t.afspeelduur,\n" +
+                        "t.playcount\n" +
+                        "FROM track t\n" +
+                        "INNER JOIN video v ON t.id = v.id\n" +
+                        "WHERE t.id NOT IN (\n" +
+                        "\tSELECT DISTINCT trackid\n" +
+                        "\t\tFROM track_per_playlist\n" +
+                        "\tWHERE playlistid = ?)"
         );
         statement.setInt(1, playlistId);
         return videoBuilder.buildObjectFromResultSet(statement.executeQuery());
