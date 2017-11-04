@@ -3,9 +3,11 @@ package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
 import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
 import nl.han.oose.dea.jamielvanengen.domain.track.Track;
+import nl.han.oose.dea.jamielvanengen.domain.track.TrackPerPlaylist;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -15,6 +17,10 @@ import java.util.List;
 public class VideoDAO extends DAO {
     @Inject
     Builder<Track> trackBuilder;
+
+    @Inject
+    @Named("VideoPerPlaylist")
+    Builder<TrackPerPlaylist> trackPerPlaylistBuilder;
 
     public List<Track> getAllVideosByPlaylistId(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
