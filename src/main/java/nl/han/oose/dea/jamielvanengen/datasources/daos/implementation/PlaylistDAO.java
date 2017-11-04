@@ -56,4 +56,13 @@ public class PlaylistDAO extends DAO {
         statement.executeUpdate();
         statement.close();
     }
+
+    public void deleteTrackFromPlaylist(int playlistId, int trackId) throws SQLException {
+        Connection connection = connectionFactory.getConnectionFromProperties();
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM track_per_playlist WHERE playlistid = ? AND trackid = ?");
+        statement.setInt(1, playlistId);
+        statement.setInt(2, trackId);
+
+        statement.executeUpdate();
+    }
 }
