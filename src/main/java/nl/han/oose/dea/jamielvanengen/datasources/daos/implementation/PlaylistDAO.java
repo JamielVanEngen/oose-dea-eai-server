@@ -65,4 +65,16 @@ public class PlaylistDAO extends DAO {
 
         statement.executeUpdate();
     }
+
+    public void addTrackToPlaylist(int playlistId, int trackId, boolean isAvailableOffline) throws SQLException {
+        Connection connection = connectionFactory.getConnectionFromProperties();
+        PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO spotitube.track_per_playlist(playlistid, trackid, isAvailableOffline)\n" +
+                "VALUES(?, ?, ?)");
+        statement.setInt(1, playlistId);
+        statement.setInt(2, trackId);
+        statement.setBoolean(2, isAvailableOffline);
+
+        statement.executeUpdate();
+    }
 }
