@@ -15,8 +15,6 @@ import java.util.List;
 
 @Default
 public class TrackDAO extends DAO {
-    @Inject
-    Builder<Track> trackBuilder;
 
 
     public int getTotalTrackTime() throws SQLException {
