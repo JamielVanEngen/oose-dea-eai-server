@@ -131,4 +131,19 @@ public class PlaylistController {
         List<TrackPerPlaylist> tracks = trackService.getAllTracksByPlaylistId(playlistId);
         return new PlaylistTracksOverview(trackPerPlaylistViewModelBuilder.buildTrackPerPlaylistViewModelsFromTrackPerPlaylists(tracks));
     }
+
+    @DELETE
+    @Path("/{playlistId}/tracks/{trackId}")
+    public Response removeTrackFromPlaylist(@PathParam("playlistId") int playlistId, @PathParam("trackId") int trackId, @QueryParam("token") String token) {
+        if (tokenService.doesTokenExist(token)) {
+            int userId = tokenService.getUserIdByTokenUuid(token);
+            if (isUserThePlaylistOwner(userId, playlistId)) {
+                playlistService.removeTrackFromPlaylist(playlistId, trackId);
+                PlaylistTracksOverview overview = getTracksByPlaylistId(playlistId);
+
+                return Response.status(HttpResponse.OK.getValue()).entity(overview).build();
+            }
+        }
+        return Response.status(HttpResponse.UNAUTHORIZED.getValue()).build();
+    }
 }
