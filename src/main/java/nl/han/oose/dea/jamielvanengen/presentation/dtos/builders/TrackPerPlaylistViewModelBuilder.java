@@ -7,6 +7,7 @@ import nl.han.oose.dea.jamielvanengen.domain.track.impl.Video;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistTrack;
 
 import javax.enterprise.inject.Default;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class TrackPerPlaylistViewModelBuilder {
                 video.getAfspeelduur(),
                 null,
                 video.getPlaycount(),
-                video.getPublicatiedatum(),
+                video.getPublicatiedatum().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 video.getBeschrijving(),
                 isAvailableOffline
         );

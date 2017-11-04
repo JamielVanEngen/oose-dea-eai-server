@@ -7,6 +7,7 @@ import nl.han.oose.dea.jamielvanengen.domain.track.impl.Video;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.TrackViewModel;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.TrackViewModel;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class TrackViewModelBuilder {
                 video.getAfspeelduur(),
                 null,
                 video.getPlaycount(),
-                video.getPublicatiedatum(),
+                video.getPublicatiedatum().format(DateTimeFormatter.ofPattern("dd-mm-yyyy")),
                 video.getBeschrijving()
         );
     }

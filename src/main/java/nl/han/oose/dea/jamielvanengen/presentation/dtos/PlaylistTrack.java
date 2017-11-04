@@ -9,7 +9,7 @@ public class PlaylistTrack extends TrackViewModel {
     public PlaylistTrack() {
     }
 
-    public PlaylistTrack(int id, String title, String performer, int duration, String album, Integer playcount, LocalDate publicationDate, String description, boolean offlineAvailable) {
+    public PlaylistTrack(int id, String title, String performer, int duration, String album, Integer playcount, String publicationDate, String description, boolean offlineAvailable) {
         super(id, title, performer, duration, album, playcount, publicationDate, description);
         this.offlineAvailable = offlineAvailable;
     }
