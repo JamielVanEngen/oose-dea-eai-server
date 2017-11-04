@@ -57,4 +57,12 @@ public class PlaylistService {
             e.printStackTrace();
         }
     }
+
+    public void removeTrackFromPlaylist(int playlistId, int trackId) {
+        try {
+            playlistDAO.removeTrackFromPlaylist(playlistId, trackId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
