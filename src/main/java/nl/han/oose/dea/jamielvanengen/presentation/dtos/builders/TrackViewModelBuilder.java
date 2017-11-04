@@ -1,6 +1,7 @@
 package nl.han.oose.dea.jamielvanengen.presentation.dtos.builders;
 
 import nl.han.oose.dea.jamielvanengen.domain.track.Track;
+import nl.han.oose.dea.jamielvanengen.domain.track.TrackPerPlaylist;
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Song;
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Video;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.TrackViewModel;
@@ -11,21 +12,22 @@ import java.util.List;
 
 @Default
 public class TrackViewModelBuilder {
-    public List<TrackViewModel> buildTrackViewModelsFromTracks(List<Track> tracks) {
+    public List<TrackViewModel> buildTrackViewModelsFromTrackPerPlaylists(List<TrackPerPlaylist> trackPerPlaylists) {
         ArrayList<TrackViewModel> trackViewModels = new ArrayList<>();
 
-        for (Track track : tracks) {
+        for (TrackPerPlaylist trackPerPlaylist : trackPerPlaylists) {
+            Track track = trackPerPlaylist.getTrack();
             if (track.getClass() == Video.class) {
-                trackViewModels.add(getTrackViewModelFromVideo((Video)track));
+                trackViewModels.add(getTrackViewModelFromVideo((Video)track, trackPerPlaylist.isAvailableOffline()));
             }
             else {
-                trackViewModels.add(getTrackViewModelFromSong((Song)track));
+                trackViewModels.add(getTrackViewModelFromSong((Song)track, trackPerPlaylist.isAvailableOffline()));
             }
         }
         return trackViewModels;
     }
 
-    private TrackViewModel getTrackViewModelFromVideo(Video video) {
+    private TrackViewModel getTrackViewModelFromVideo(Video video, boolean isAvailableOffline) {
         return new TrackViewModel(
                 video.getId(),
                 video.getTitel(),
@@ -35,11 +37,11 @@ public class TrackViewModelBuilder {
                 video.getPlaycount(),
                 video.getPublicatiedatum(),
                 video.getBeschrijving(),
-                video.isAvailableOffline()
+                isAvailableOffline
         );
     }
 
-    private TrackViewModel getTrackViewModelFromSong(Song song) {
+    private TrackViewModel getTrackViewModelFromSong(Song song, boolean isAvailableOffline) {
         return new TrackViewModel(
                 song.getId(),
                 song.getTitel(),
@@ -49,7 +51,7 @@ public class TrackViewModelBuilder {
                 song.getPlaycount(),
                 null,
                 null,
-                song.isAvailableOffline()
+                isAvailableOffline
         );
     }
 }
