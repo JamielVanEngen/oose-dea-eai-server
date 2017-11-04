@@ -2,12 +2,14 @@ package nl.han.oose.dea.jamielvanengen.domain.builders;
 
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Video;
 
+import javax.enterprise.inject.Default;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Default
 public class VideoBuilder implements Builder<Video> {
     @Override
     public List<Video> buildObjectFromResultSet(ResultSet resultSet) throws SQLException {

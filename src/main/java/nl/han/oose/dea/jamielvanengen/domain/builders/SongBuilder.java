@@ -3,11 +3,13 @@ package nl.han.oose.dea.jamielvanengen.domain.builders;
 import nl.han.oose.dea.jamielvanengen.domain.track.Track;
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Song;
 
+import javax.enterprise.inject.Default;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Default
 public class SongBuilder implements Builder<Song> {
     @Override
     public List<Song> buildObjectFromResultSet(ResultSet resultSet) throws SQLException {

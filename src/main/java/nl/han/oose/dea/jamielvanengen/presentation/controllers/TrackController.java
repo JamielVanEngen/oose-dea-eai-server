@@ -41,6 +41,6 @@ public class TrackController {
 
     private TrackOverview getAllTracksNotInPlaylist(int playlistId) {
         List<Track> tracks = trackService.getAllTracksNotInPlaylist(playlistId);
-        return new TrackOverview(trackViewModelBuilder.buildTrackViewModelsFromTrackPerPlaylists(tracks));
+        return new TrackOverview(trackViewModelBuilder.buildTrackViewModelsFromTracks(tracks));
     }
 }

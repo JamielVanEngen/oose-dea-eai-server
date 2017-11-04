@@ -1,6 +1,5 @@
 package nl.han.oose.dea.jamielvanengen.presentation.dtos;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class TrackViewModel {
@@ -12,12 +11,11 @@ public class TrackViewModel {
     private Integer playcount;
     private LocalDate publicationDate;
     private String description;
-    private boolean offlineAvailable;
 
     public TrackViewModel() {
     }
 
-    public TrackViewModel(int id, String title, String performer, int duration, String album, Integer playcount, LocalDate publicationDate, String description, boolean offlineAvailable) {
+    public TrackViewModel(int id, String title, String performer, int duration, String album, Integer playcount, LocalDate publicationDate, String description) {
         this.id = id;
         this.title = title;
         this.performer = performer;
@@ -26,7 +24,6 @@ public class TrackViewModel {
         this.playcount = playcount;
         this.publicationDate = publicationDate;
         this.description = description;
-        this.offlineAvailable = offlineAvailable;
     }
 
     public int getId() {
@@ -91,13 +88,5 @@ public class TrackViewModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean isOfflineAvailable() {
-        return offlineAvailable;
-    }
-
-    public void setOfflineAvailable(boolean offlineAvailable) {
-        this.offlineAvailable = offlineAvailable;
     }
 }

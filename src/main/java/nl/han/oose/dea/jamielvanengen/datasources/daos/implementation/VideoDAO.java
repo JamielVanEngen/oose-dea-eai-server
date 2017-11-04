@@ -2,8 +2,8 @@ package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
 import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
-import nl.han.oose.dea.jamielvanengen.domain.track.Track;
 import nl.han.oose.dea.jamielvanengen.domain.track.TrackPerPlaylist;
+import nl.han.oose.dea.jamielvanengen.domain.track.impl.Video;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -16,10 +16,10 @@ import java.util.List;
 @Default
 public class VideoDAO extends DAO {
     @Inject
-    Builder<Track> trackBuilder;
+    Builder<Video> videoBuilder;
 
     @Inject
-    @Named("VideoPerPlaylist")
+    @Named("VideoPerPlaylistBuilder")
     Builder<TrackPerPlaylist> trackPerPlaylistBuilder;
 
     public List<TrackPerPlaylist> getAllVideosByPlaylistId(int playlistId) throws SQLException {
@@ -42,7 +42,7 @@ public class VideoDAO extends DAO {
         return trackPerPlaylistBuilder.buildObjectFromResultSet(statement.executeQuery());
     }
 
-    public List<Track> getAllVideosNotInPlaylist(int playlistId) throws SQLException {
+    public List<Video> getAllVideosNotInPlaylist(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement(
                 "SELECT *\n" +
@@ -53,6 +53,6 @@ public class VideoDAO extends DAO {
                         " WHERE playlistId = ?)"
         );
         statement.setInt(1, playlistId);
-        return trackBuilder.buildObjectFromResultSet(statement.executeQuery());
+        return videoBuilder.buildObjectFromResultSet(statement.executeQuery());
     }
 }

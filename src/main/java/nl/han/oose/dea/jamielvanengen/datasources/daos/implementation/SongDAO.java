@@ -20,7 +20,7 @@ public class SongDAO extends DAO {
     Builder<Song> songBuilder;
 
     @Inject
-    @Named("SongPerPlaylist")
+    @Named("SongPerPlaylistBuilder")
     Builder<TrackPerPlaylist> trackPerPlaylistBuilder;
 
     public List<TrackPerPlaylist> getAllSongsByPlaylistId(int playlistId) throws SQLException {

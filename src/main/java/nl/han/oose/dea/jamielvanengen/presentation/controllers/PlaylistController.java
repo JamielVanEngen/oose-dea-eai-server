@@ -5,9 +5,9 @@ import nl.han.oose.dea.jamielvanengen.domain.Playlist;
 import nl.han.oose.dea.jamielvanengen.domain.track.TrackPerPlaylist;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistOverview;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistOverviewItem;
-import nl.han.oose.dea.jamielvanengen.presentation.dtos.TrackOverview;
+import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistTracksOverview;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.PlaylistOverviewItemBuilder;
-import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.TrackViewModelBuilder;
+import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.TrackPerPlaylistViewModelBuilder;
 import nl.han.oose.dea.jamielvanengen.services.PlaylistService;
 import nl.han.oose.dea.jamielvanengen.services.TokenService;
 import nl.han.oose.dea.jamielvanengen.services.TrackService;
@@ -34,7 +34,7 @@ public class PlaylistController {
     PlaylistOverviewItemBuilder playlistOverviewItemBuilder;
 
     @Inject
-    TrackViewModelBuilder trackViewModelBuilder;
+    TrackPerPlaylistViewModelBuilder trackPerPlaylistViewModelBuilder;
 
     @GET
     @Path("/")
@@ -118,7 +118,7 @@ public class PlaylistController {
     @Path("/{id}/tracks")
     public Response getAllTracks(@QueryParam("token") String token, @PathParam("id") int forPlaylist) {
         if (tokenService.doesTokenExist(token)) {
-            TrackOverview overview = getTracksByPlaylistId(forPlaylist);
+            PlaylistTracksOverview overview = getTracksByPlaylistId(forPlaylist);
 
             return Response.status(HttpResponse.OK.getValue()).entity(overview).build();
         }
@@ -127,8 +127,8 @@ public class PlaylistController {
         }
     }
 
-    private TrackOverview getTracksByPlaylistId(int playlistId) {
+    private PlaylistTracksOverview getTracksByPlaylistId(int playlistId) {
         List<TrackPerPlaylist> tracks = trackService.getAllTracksByPlaylistId(playlistId);
-        return new TrackOverview(trackViewModelBuilder.buildTrackViewModelsFromTrackPerPlaylists(tracks));
+        return new PlaylistTracksOverview(trackPerPlaylistViewModelBuilder.buildTrackPerPlaylistViewModelsFromTrackPerPlaylists(tracks));
     }
 }
