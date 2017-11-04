@@ -9,13 +9,13 @@ public class TrackViewModel {
     private int duration;
     private String album;
     private Integer playcount;
-    private LocalDate publicationDate;
+    private String publicationDate;
     private String description;
 
     public TrackViewModel() {
     }
 
-    public TrackViewModel(int id, String title, String performer, int duration, String album, Integer playcount, LocalDate publicationDate, String description) {
+    public TrackViewModel(int id, String title, String performer, int duration, String album, Integer playcount, String publicationDate, String description) {
         this.id = id;
         this.title = title;
         this.performer = performer;
@@ -74,11 +74,11 @@ public class TrackViewModel {
         this.playcount = playcount;
     }
 
-    public LocalDate getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(LocalDate publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
 
