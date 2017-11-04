@@ -65,4 +65,12 @@ public class PlaylistService {
             e.printStackTrace();
         }
     }
+
+    public void addTracktoPlaylist(int playlistId, int trackId, boolean isAvailableOffline) {
+        try {
+            playlistDAO.addTrackToPlaylist(playlistId, trackId, isAvailableOffline);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
