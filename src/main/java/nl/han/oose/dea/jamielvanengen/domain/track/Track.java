@@ -5,16 +5,14 @@ public abstract class Track {
     private String performer, titel, url;
     private int afspeelduur;
     private Integer playcount;
-    private boolean isAvailableOffline;
 
-    public Track(int id, String performer, String titel, String url, int afspeelduur, Integer playcount, boolean isAvailableOffline) {
+    public Track(int id, String performer, String titel, String url, int afspeelduur, Integer playcount) {
         this.id = id;
         this.performer = performer;
         this.titel = titel;
         this.url = url;
         this.afspeelduur = afspeelduur;
         this.playcount = playcount;
-        this.isAvailableOffline = isAvailableOffline;
     }
 
     public int getId() {
@@ -59,9 +57,5 @@ public abstract class Track {
 
     public Integer getPlaycount() {
         return playcount;
-    }
-
-    public boolean isAvailableOffline() {
-        return isAvailableOffline;
     }
 }

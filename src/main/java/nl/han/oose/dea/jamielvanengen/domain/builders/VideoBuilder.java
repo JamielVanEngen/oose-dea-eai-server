@@ -20,7 +20,6 @@ public class VideoBuilder implements Builder<Video> {
                     resultSet.getString("url"),
                     resultSet.getInt("afspeelduur"),
                     resultSet.getObject( "playcount" , Integer.class ),
-                    resultSet.getBoolean("isAvailableOffline"),
                     resultSet.getString("beschrijving"),
                     resultSet.getObject( "publicatiedatum" , LocalDate.class )));
         }

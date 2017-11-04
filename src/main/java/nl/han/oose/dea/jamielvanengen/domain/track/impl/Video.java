@@ -9,8 +9,8 @@ public class Video extends Track {
     private String beschrijving;
     private LocalDate publicatiedatum;
 
-    public Video(int id, String performer, String titel, String url, int afspeelduur, Integer playcount, boolean isAvailableOffline, String beschrijving, LocalDate publicatiedatum) {
-        super(id, performer, titel, url, afspeelduur, playcount, isAvailableOffline);
+    public Video(int id, String performer, String titel, String url, int afspeelduur, Integer playcount, String beschrijving, LocalDate publicatiedatum) {
+        super(id, performer, titel, url, afspeelduur, playcount);
         this.beschrijving = beschrijving;
         this.publicatiedatum = publicatiedatum;
     }

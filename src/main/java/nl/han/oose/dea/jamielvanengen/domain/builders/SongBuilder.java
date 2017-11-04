@@ -20,7 +20,6 @@ public class SongBuilder implements Builder<Song> {
                     resultSet.getString("url"),
                     resultSet.getInt("afspeelduur"),
                     resultSet.getObject( "playcount" , Integer.class ),
-                    resultSet.getBoolean("isAvailableOffline"),
                     resultSet.getString("album")));
         }
         return songs;
