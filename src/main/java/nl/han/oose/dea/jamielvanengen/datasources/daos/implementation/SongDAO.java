@@ -17,7 +17,7 @@ public class SongDAO extends DAO {
     @Inject
     Builder<Song> songBuilder;
 
-    public List<Track> getAllSongsByPlaylistId(int playlistId) throws SQLException {
+    public List<Song> getAllSongsByPlaylistId(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement(
                 "SELECT s.id,\n" +
@@ -36,7 +36,7 @@ public class SongDAO extends DAO {
         return songBuilder.buildObjectFromResultSet(statement.executeQuery());
     }
 
-    public List<Track> getAllSongsNotInPlaylist(int playlistId) throws SQLException {
+    public List<Song> getAllSongsNotInPlaylist(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement(
                 "SELECT *\n" +
