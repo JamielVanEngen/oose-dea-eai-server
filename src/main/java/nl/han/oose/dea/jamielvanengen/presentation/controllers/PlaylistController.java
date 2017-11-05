@@ -146,4 +146,20 @@ public class PlaylistController {
         }
         return Response.status(HttpResponse.UNAUTHORIZED.getValue()).build();
     }
+
+    @POST
+    @Path("/{id}/tracks")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addTracktoPlaylist(@QueryParam("token") String token, @PathParam("id") int playlistId, TrackPerPlaylist playlist) {
+        if (tokenService.doesTokenExist(token)) {
+            playlistService.addTracktoPlaylist(playlistId, playlist.getTrack().getId(), playlist.isOfflineAvailable());
+
+            PlaylistTracksOverview overview = getTracksByPlaylistId(playlistId);
+
+            return Response.status(HttpResponse.OK.getValue()).entity(overview).build();
+        }
+        else {
+            return Response.status(HttpResponse.UNAUTHORIZED.getValue()).build();
+        }
+    }
 }

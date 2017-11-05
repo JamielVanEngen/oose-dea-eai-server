@@ -1,10 +1,13 @@
 package nl.han.oose.dea.jamielvanengen.domain.track;
 
-public abstract class Track {
+public class Track {
     private int id;
     private String performer, titel, url;
     private int afspeelduur;
     private Integer playcount;
+
+    public Track() {
+    }
 
     public Track(int id, String performer, String titel, String url, int afspeelduur, Integer playcount) {
         this.id = id;

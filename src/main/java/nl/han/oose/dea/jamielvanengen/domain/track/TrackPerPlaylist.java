@@ -2,18 +2,30 @@ package nl.han.oose.dea.jamielvanengen.domain.track;
 
 public class TrackPerPlaylist {
     private Track track;
-    private boolean isAvailableOffline;
+    private boolean offlineAvailable;
 
-    public TrackPerPlaylist(Track track, boolean isAvailableOffline) {
+    public TrackPerPlaylist() {
+        track = new Track();
+    }
+
+    public TrackPerPlaylist(Track track, boolean offlineAvailable) {
         this.track = track;
-        this.isAvailableOffline = isAvailableOffline;
+        this.offlineAvailable = offlineAvailable;
     }
 
     public Track getTrack() {
         return track;
     }
 
-    public boolean isAvailableOffline() {
-        return isAvailableOffline;
+    public boolean isOfflineAvailable() {
+        return offlineAvailable;
+    }
+
+    public void setOfflineAvailable(boolean availableOffline) {
+        offlineAvailable = availableOffline;
+    }
+
+    public void setId(int id) {
+        track.setId(id);
     }
 }
