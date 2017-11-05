@@ -78,7 +78,7 @@ public class PlaylistDAO extends DAO {
                 "VALUES(?, ?, ?)");
         statement.setInt(1, playlistId);
         statement.setInt(2, trackId);
-        statement.setBoolean(2, isAvailableOffline);
+        statement.setBoolean(3, isAvailableOffline);
 
         statement.executeUpdate();
         statement.close();
