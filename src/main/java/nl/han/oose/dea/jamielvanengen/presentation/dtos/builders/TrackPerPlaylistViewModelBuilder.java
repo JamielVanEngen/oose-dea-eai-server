@@ -19,10 +19,10 @@ public class TrackPerPlaylistViewModelBuilder {
         for (TrackPerPlaylist trackPerPlaylist : trackPerPlaylists) {
             Track track = trackPerPlaylist.getTrack();
             if (track.getClass() == Video.class) {
-                playlistTracks.add(getTrackPerPlaylistViewModelFromVideo((Video)track, trackPerPlaylist.isAvailableOffline()));
+                playlistTracks.add(getTrackPerPlaylistViewModelFromVideo((Video)track, trackPerPlaylist.isOfflineAvailable()));
             }
             else {
-                playlistTracks.add(getTrackPerPlaylistViewModelFromSong((Song)track, trackPerPlaylist.isAvailableOffline()));
+                playlistTracks.add(getTrackPerPlaylistViewModelFromSong((Song)track, trackPerPlaylist.isOfflineAvailable()));
             }
         }
         return playlistTracks;
