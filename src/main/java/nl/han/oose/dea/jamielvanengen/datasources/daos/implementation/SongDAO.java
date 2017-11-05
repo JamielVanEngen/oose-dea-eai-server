@@ -40,7 +40,10 @@ public class SongDAO extends DAO {
                         "WHERE tpp.playlistid = ?"
         );
         statement.setInt(1, playlistId);
-        return trackPerPlaylistBuilder.buildObjectFromResultSet(statement.executeQuery());
+        List<TrackPerPlaylist> trackPerPlaylists = trackPerPlaylistBuilder
+                .buildObjectFromResultSet(statement.executeQuery());
+        statement.close();
+        return trackPerPlaylists;
     }
 
     public List<Song> getAllSongsNotInPlaylist(int playlistId) throws SQLException {
@@ -61,6 +64,8 @@ public class SongDAO extends DAO {
                         "\tWHERE playlistid = ?)"
         );
         statement.setInt(1, playlistId);
-        return songBuilder.buildObjectFromResultSet(statement.executeQuery());
+        List<Song> songs = songBuilder.buildObjectFromResultSet(statement.executeQuery());
+        statement.close();
+        return songs;
     }
 }

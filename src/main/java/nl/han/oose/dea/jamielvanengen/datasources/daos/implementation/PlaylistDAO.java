@@ -19,7 +19,10 @@ public class PlaylistDAO extends DAO {
     public List<Playlist> getAllPlaylists() throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlist");
-        return playlistBuilder.buildObjectFromResultSet(statement.executeQuery());
+
+        List<Playlist> playlists = playlistBuilder.buildObjectFromResultSet(statement.executeQuery());
+        statement.close();
+        return playlists;
     }
 
     public void deletePlaylistById(int id) throws SQLException {
@@ -28,6 +31,7 @@ public class PlaylistDAO extends DAO {
         statement.setInt(1, id);
 
         statement.executeUpdate();
+        statement.close();
     }
 
     public Playlist getPlaylistById(int id) throws SQLException {
@@ -64,6 +68,7 @@ public class PlaylistDAO extends DAO {
         statement.setInt(2, trackId);
 
         statement.executeUpdate();
+        statement.close();
     }
 
     public void addTrackToPlaylist(int playlistId, int trackId, boolean isAvailableOffline) throws SQLException {
@@ -76,5 +81,6 @@ public class PlaylistDAO extends DAO {
         statement.setBoolean(2, isAvailableOffline);
 
         statement.executeUpdate();
+        statement.close();
     }
 }

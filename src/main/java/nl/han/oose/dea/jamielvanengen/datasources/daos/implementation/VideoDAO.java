@@ -40,7 +40,10 @@ public class VideoDAO extends DAO {
                         "WHERE tpp.playlistid = ?"
         );
         statement.setInt(1, playlistId);
-        return trackPerPlaylistBuilder.buildObjectFromResultSet(statement.executeQuery());
+        List<TrackPerPlaylist> trackPerPlaylists = trackPerPlaylistBuilder
+                .buildObjectFromResultSet(statement.executeQuery());
+        statement.close();
+        return trackPerPlaylists;
     }
 
     public List<Video> getAllVideosNotInPlaylist(int playlistId) throws SQLException {
@@ -62,6 +65,8 @@ public class VideoDAO extends DAO {
                         "\tWHERE playlistid = ?)"
         );
         statement.setInt(1, playlistId);
-        return videoBuilder.buildObjectFromResultSet(statement.executeQuery());
+        List<Video> videos = videoBuilder.buildObjectFromResultSet(statement.executeQuery());
+        statement.close();
+        return videos;
     }
 }
