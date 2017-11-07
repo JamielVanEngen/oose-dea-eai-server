@@ -11,7 +11,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String user, String password, String token) {
+    public User(int id, String user, String password) {
         this.id = id;
         this.user = user;
         this.password = password;

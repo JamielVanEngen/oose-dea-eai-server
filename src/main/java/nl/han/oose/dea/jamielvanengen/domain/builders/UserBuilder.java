@@ -13,7 +13,7 @@ public class UserBuilder {
     public List<User> getUsersFromResultSet(ResultSet resultSet) throws SQLException {
         List<User> users = new ArrayList<>();
         while (resultSet.next()) {
-            users.add((new User(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("password"), "123")));
+            users.add((new User(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("password"))));
         }
         return users;
     }

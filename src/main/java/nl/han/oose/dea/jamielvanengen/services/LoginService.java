@@ -9,7 +9,13 @@ import javax.security.sasl.AuthenticationException;
 
 @Default
 public class LoginService {
-    @Inject UserDAO userDao;
+    @Inject
+    private UserDAO userDao;
+
+    @Inject
+    public void setUserDao(UserDAO userDao) {
+        this.userDao = userDao;
+    }
 
     public User login(String username, String password) throws AuthenticationException {
         User user = userDao.getUserByUsername(username);
