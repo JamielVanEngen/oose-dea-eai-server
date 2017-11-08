@@ -1,6 +1,7 @@
-package nl.han.oose.dea.jamielvanengen.domain.builders;
+package nl.han.oose.dea.jamielvanengen.domain.builders.implementation;
 
 import nl.han.oose.dea.jamielvanengen.domain.Token;
+import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
 
 import javax.enterprise.inject.Default;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package nl.han.oose.dea.jamielvanengen.domain.builders;
+package nl.han.oose.dea.jamielvanengen.domain.builders.implementation;
 
 import nl.han.oose.dea.jamielvanengen.domain.User;
 

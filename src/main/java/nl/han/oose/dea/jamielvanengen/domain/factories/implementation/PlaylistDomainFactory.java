@@ -1,6 +1,7 @@
-package nl.han.oose.dea.jamielvanengen.domain.builders;
+package nl.han.oose.dea.jamielvanengen.domain.builders.implementation;
 
 import nl.han.oose.dea.jamielvanengen.domain.Playlist;
+import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
