@@ -1,8 +1,7 @@
 package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
-import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
-import nl.han.oose.dea.jamielvanengen.domain.track.Track;
+import nl.han.oose.dea.jamielvanengen.domain.factories.DomainFactory;
 import nl.han.oose.dea.jamielvanengen.domain.track.TrackPerPlaylist;
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Song;
 
@@ -17,11 +16,11 @@ import java.util.List;
 @Default
 public class SongDAO extends DAO {
     @Inject
-    Builder<Song> songBuilder;
+    DomainFactory<Song> songDomainFactory;
 
     @Inject
     @Named("SongPerPlaylistBuilder")
-    Builder<TrackPerPlaylist> trackPerPlaylistBuilder;
+    DomainFactory<TrackPerPlaylist> trackPerPlaylistDomainFactory;
 
     public List<TrackPerPlaylist> getAllSongsByPlaylistId(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
@@ -40,8 +39,8 @@ public class SongDAO extends DAO {
                         "WHERE tpp.playlistid = ?"
         );
         statement.setInt(1, playlistId);
-        List<TrackPerPlaylist> trackPerPlaylists = trackPerPlaylistBuilder
-                .buildObjectFromResultSet(statement.executeQuery());
+        List<TrackPerPlaylist> trackPerPlaylists = trackPerPlaylistDomainFactory
+                .getDomainObjectFromResultSet(statement.executeQuery());
         statement.close();
         return trackPerPlaylists;
     }
@@ -64,7 +63,7 @@ public class SongDAO extends DAO {
                         "\tWHERE playlistid = ?)"
         );
         statement.setInt(1, playlistId);
-        List<Song> songs = songBuilder.buildObjectFromResultSet(statement.executeQuery());
+        List<Song> songs = songDomainFactory.getDomainObjectFromResultSet(statement.executeQuery());
         statement.close();
         return songs;
     }

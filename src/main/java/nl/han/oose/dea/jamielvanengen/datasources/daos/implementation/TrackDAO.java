@@ -1,11 +1,8 @@
 package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
-import nl.han.oose.dea.jamielvanengen.domain.track.Track;
-import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
 
 import javax.enterprise.inject.Default;
-import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

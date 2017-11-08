@@ -2,8 +2,7 @@ package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
 import nl.han.oose.dea.jamielvanengen.domain.Playlist;
-import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
-import nl.han.oose.dea.jamielvanengen.domain.builders.PlaylistBuilder;
+import nl.han.oose.dea.jamielvanengen.domain.factories.DomainFactory;
 
 import javax.inject.Inject;
 import java.sql.Connection;
@@ -13,14 +12,14 @@ import java.util.List;
 
 public class PlaylistDAO extends DAO {
     @Inject
-    Builder<Playlist> playlistBuilder;
+    DomainFactory<Playlist> playlistDomainFactory;
 
 
     public List<Playlist> getAllPlaylists() throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlist");
 
-        List<Playlist> playlists = playlistBuilder.buildObjectFromResultSet(statement.executeQuery());
+        List<Playlist> playlists = playlistDomainFactory.getDomainObjectFromResultSet(statement.executeQuery());
         statement.close();
         return playlists;
     }
@@ -38,7 +37,7 @@ public class PlaylistDAO extends DAO {
         Connection connection = connectionFactory.getConnectionFromProperties();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlist WHERE id = ?");
         statement.setInt(1, id);
-        List<Playlist> playlists = playlistBuilder.buildObjectFromResultSet(statement.executeQuery());
+        List<Playlist> playlists = playlistDomainFactory.getDomainObjectFromResultSet(statement.executeQuery());
         statement.close();
         return playlists.stream().findFirst().orElse(new Playlist());
     }

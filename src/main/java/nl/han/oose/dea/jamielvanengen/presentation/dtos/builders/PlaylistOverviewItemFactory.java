@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Default
-public class PlaylistOverviewItemBuilder {
-    public List<PlaylistOverviewItem> buildPlaylistOverviewsFromPlaylists(List<Playlist> playlists, int currentUserId) {
+public class PlaylistOverviewItemFactory {
+    public List<PlaylistOverviewItem> getPlaylistOverviewsFromPlaylists(List<Playlist> playlists, int currentUserId) {
         List<PlaylistOverviewItem> playlistOverviewItems = new ArrayList<>();
 
         playlists.stream().forEach(playlist -> playlistOverviewItems.add(new PlaylistOverviewItem(

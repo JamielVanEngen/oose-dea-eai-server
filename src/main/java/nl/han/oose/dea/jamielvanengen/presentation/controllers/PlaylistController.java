@@ -6,8 +6,8 @@ import nl.han.oose.dea.jamielvanengen.domain.track.TrackPerPlaylist;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistOverview;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistOverviewItem;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.PlaylistTracksOverview;
-import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.PlaylistOverviewItemBuilder;
-import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.TrackPerPlaylistViewModelBuilder;
+import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.PlaylistOverviewItemFactory;
+import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.TrackPerPlaylistViewModelFactory;
 import nl.han.oose.dea.jamielvanengen.services.PlaylistService;
 import nl.han.oose.dea.jamielvanengen.services.TokenService;
 import nl.han.oose.dea.jamielvanengen.services.TrackService;
@@ -31,10 +31,10 @@ public class PlaylistController {
     TrackService trackService;
 
     @Inject
-    PlaylistOverviewItemBuilder playlistOverviewItemBuilder;
+    PlaylistOverviewItemFactory playlistOverviewItemFactory;
 
     @Inject
-    TrackPerPlaylistViewModelBuilder trackPerPlaylistViewModelBuilder;
+    TrackPerPlaylistViewModelFactory trackPerPlaylistViewModelFactory;
 
     @GET
     @Path("/")
@@ -68,8 +68,8 @@ public class PlaylistController {
     private PlaylistOverview getPlaylistOverview(int currentUserId) {
         List<Playlist> playlists = playlistService.getAllPlaylists();
         int afspeelduur = trackService.getTotalTrackTime();
-        List<PlaylistOverviewItem> playlistOverviewItems = playlistOverviewItemBuilder
-                .buildPlaylistOverviewsFromPlaylists(playlists, currentUserId);
+        List<PlaylistOverviewItem> playlistOverviewItems = playlistOverviewItemFactory
+                .getPlaylistOverviewsFromPlaylists(playlists, currentUserId);
 
         return new PlaylistOverview(playlistOverviewItems, afspeelduur);
     }
@@ -129,7 +129,7 @@ public class PlaylistController {
 
     private PlaylistTracksOverview getTracksByPlaylistId(int playlistId) {
         List<TrackPerPlaylist> tracks = trackService.getAllTracksByPlaylistId(playlistId);
-        return new PlaylistTracksOverview(trackPerPlaylistViewModelBuilder.buildTrackPerPlaylistViewModelsFromTrackPerPlaylists(tracks));
+        return new PlaylistTracksOverview(trackPerPlaylistViewModelFactory.getTrackPerPlaylistViewModelsFromTrackPerPlaylists(tracks));
     }
 
     @DELETE

@@ -3,7 +3,7 @@ package nl.han.oose.dea.jamielvanengen.presentation.controllers;
 import nl.han.oose.dea.jamielvanengen.constants.HttpResponse;
 import nl.han.oose.dea.jamielvanengen.domain.track.Track;
 import nl.han.oose.dea.jamielvanengen.presentation.dtos.TrackOverview;
-import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.TrackViewModelBuilder;
+import nl.han.oose.dea.jamielvanengen.presentation.dtos.builders.TrackViewModelFactory;
 import nl.han.oose.dea.jamielvanengen.services.TokenService;
 import nl.han.oose.dea.jamielvanengen.services.TrackService;
 
@@ -24,7 +24,7 @@ public class TrackController {
     TrackService trackService;
 
     @Inject
-    TrackViewModelBuilder trackViewModelBuilder;
+    TrackViewModelFactory trackViewModelFactory;
 
     @GET
     @Path("/")
@@ -41,6 +41,6 @@ public class TrackController {
 
     private TrackOverview getAllTracksNotInPlaylist(int playlistId) {
         List<Track> tracks = trackService.getAllTracksNotInPlaylist(playlistId);
-        return new TrackOverview(trackViewModelBuilder.buildTrackViewModelsFromTracks(tracks));
+        return new TrackOverview(trackViewModelFactory.getTrackViewModelsFromTracks(tracks));
     }
 }

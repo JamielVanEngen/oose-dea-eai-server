@@ -1,5 +1,6 @@
-package nl.han.oose.dea.jamielvanengen.domain.builders.implementation;
+package nl.han.oose.dea.jamielvanengen.domain.factories.implementation;
 
+import nl.han.oose.dea.jamielvanengen.domain.factories.DomainFactory;
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Video;
 
 import javax.enterprise.inject.Default;
@@ -10,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Default
-public class VideoBuilder implements Builder<Video> {
+public class VideoDomainFactory implements DomainFactory<Video> {
     @Override
-    public List<Video> buildObjectFromResultSet(ResultSet resultSet) throws SQLException {
+    public List<Video> getDomainObjectFromResultSet(ResultSet resultSet) throws SQLException {
         List<Video> songs = new ArrayList<>();
         while (resultSet.next()) {
             songs.add(new Video(

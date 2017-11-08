@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Default
-public class TrackPerPlaylistViewModelBuilder {
-    public List<PlaylistTrack> buildTrackPerPlaylistViewModelsFromTrackPerPlaylists(List<TrackPerPlaylist> trackPerPlaylists) {
+public class TrackPerPlaylistViewModelFactory {
+    public List<PlaylistTrack> getstTrackPerPlaylistViewModelsFromTrackPerPlaylists(List<TrackPerPlaylist> trackPerPlaylists) {
         ArrayList<PlaylistTrack> playlistTracks = new ArrayList<>();
 
         for (TrackPerPlaylist trackPerPlaylist : trackPerPlaylists) {

@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrackViewModelBuilder {
-    public List<TrackViewModel> buildTrackViewModelsFromTracks(List<Track> tracks) {
+public class TrackViewModelFactory {
+    public List<TrackViewModel> getTrackViewModelsFromTracks(List<Track> tracks) {
         ArrayList<TrackViewModel> trackViewModels = new ArrayList<>();
 
         for (Track track : tracks) {

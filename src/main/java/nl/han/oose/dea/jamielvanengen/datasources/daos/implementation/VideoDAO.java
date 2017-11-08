@@ -1,7 +1,7 @@
 package nl.han.oose.dea.jamielvanengen.datasources.daos.implementation;
 
 import nl.han.oose.dea.jamielvanengen.datasources.daos.DAO;
-import nl.han.oose.dea.jamielvanengen.domain.builders.Builder;
+import nl.han.oose.dea.jamielvanengen.domain.factories.DomainFactory;
 import nl.han.oose.dea.jamielvanengen.domain.track.TrackPerPlaylist;
 import nl.han.oose.dea.jamielvanengen.domain.track.impl.Video;
 
@@ -16,11 +16,11 @@ import java.util.List;
 @Default
 public class VideoDAO extends DAO {
     @Inject
-    Builder<Video> videoBuilder;
+    DomainFactory<Video> videoDomainFactory;
 
     @Inject
     @Named("VideoPerPlaylistBuilder")
-    Builder<TrackPerPlaylist> trackPerPlaylistBuilder;
+    DomainFactory<TrackPerPlaylist> trackPerPlaylistDomainFactory;
 
     public List<TrackPerPlaylist> getAllVideosByPlaylistId(int playlistId) throws SQLException {
         Connection connection = connectionFactory.getConnectionFromProperties();
@@ -40,8 +40,8 @@ public class VideoDAO extends DAO {
                         "WHERE tpp.playlistid = ?"
         );
         statement.setInt(1, playlistId);
-        List<TrackPerPlaylist> trackPerPlaylists = trackPerPlaylistBuilder
-                .buildObjectFromResultSet(statement.executeQuery());
+        List<TrackPerPlaylist> trackPerPlaylists = trackPerPlaylistDomainFactory
+                .getDomainObjectFromResultSet(statement.executeQuery());
         statement.close();
         return trackPerPlaylists;
     }
@@ -65,7 +65,7 @@ public class VideoDAO extends DAO {
                         "\tWHERE playlistid = ?)"
         );
         statement.setInt(1, playlistId);
-        List<Video> videos = videoBuilder.buildObjectFromResultSet(statement.executeQuery());
+        List<Video> videos = videoDomainFactory.getDomainObjectFromResultSet(statement.executeQuery());
         statement.close();
         return videos;
     }
