@@ -129,7 +129,7 @@ public class PlaylistController {
 
     private PlaylistTracksOverview getTracksByPlaylistId(int playlistId) {
         List<TrackPerPlaylist> tracks = trackService.getAllTracksByPlaylistId(playlistId);
-        return new PlaylistTracksOverview(trackPerPlaylistViewModelFactory.getTrackPerPlaylistViewModelsFromTrackPerPlaylists(tracks));
+        return new PlaylistTracksOverview(trackPerPlaylistViewModelFactory.getstTrackPerPlaylistViewModelsFromTrackPerPlaylists(tracks));
     }
 
     @DELETE

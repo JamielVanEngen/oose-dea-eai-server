@@ -38,4 +38,8 @@ public class LoginController {
             return Response.status(HttpResponse.UNAUTHORIZED.getValue()).build();
         }
     }
+
+    public void setLoginService(LoginService loginService) {
+        this.loginService = loginService;
+    }
 }
